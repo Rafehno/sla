@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quem na roda?</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            border-radius: 1.25rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            background-color: #fff;
+            padding: 2rem;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 3 / 4;
+            transition: 0.3s ease;
+            border-color: #5a32a3;
+        }
+
+        .card-text {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .btn-custom {
+            background-color: #6f42c1;
+            color: white;
+            border-radius: 0.5rem;
+        }
+
+        .btn-custom:hover {
+            background-color: #5a32a3;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container text-center">
+        <h1 class="mb-4">Quem na roda?</h1>
+
+        <div class="card mb-4 p-4">
+            <p class="card-text bg-custom" id="pergunta">Toque no botão abaixo para começar!</p>
+        </div>
+
+        <button class="btn btn-custom btn-lg w-100" onclick="novaPergunta()">Sortear pergunta</button>
+    </div>
+
+    <script>
+        const perguntas = [
+            "Quem na roda é mais grosso?",
+            "Quem na roda tem atitudes mais questionáveis?",
+            "Quem na roda é mais fraco a bebida?",
+            "Quem na roda é o mais calvo?",
+            "Quem na roda é o mais feio?",
+            "Quem na roda tem o pior estilo?",
+            "Quem na roda é mais arrogante?",
+            "Quem na roda é menos talentoso nas coisas?",
+            "Quem na roda tem o pior gosto musical?",
+            "Quem na roda tem o dedo mais podre?",
+            "Quem na roda é menos carismático?",
+            "Quem na roda é mais influenciável?",
+            "Quem na roda é mais invejoso?",
+            "Quem na roda é mais fofoqueiro?",
+            "Quem na roda tem menos atitude?",
+            "Quem na roda é mais entrosa?",
+            "Quem na roda tem o pior senso de humor?",
+            "Quem na roda se atrasa mais?",
+            "Quem na roda seria muito melhor medicado?",
+            "Quem na roda passa mais vergonha fingindo ser o que não é?",
+            "Quem na roda redflag?",
+            "Quem na roda flerta pior?",
+            "Quem na roda é o mais caloteiro?",
+            "Quem na roda é mais analfabeto?",
+            "Quem na roda é mais mimado?",
+            "Quem na roda fode fofo?",
+            "Quem na roda participaria de uma suruba?",
+            "Quem na roda ficaria mais sexy de lingerie?",
+            "Quem na roda iria num bar de stripe?",
+            "Quem na roda faria um striptease?",
+            "Quem na roda perderia a virgindade com um/uma GP?",
+            "Quem na roda é melhor na cama?",
+            "Quem na roda é a maior santinha quando se trata de sexo?",
+            "Quem na roda se masturbaria em frente ao espelho?",
+            "Quem na roda apanha na cama?",
+            "Quem na roda bate na cama?",
+            "Quem na roda faz sextape?",
+            "Quem na roda é mais provável de levar um cintaralho de uma mulher?",
+            "Quem na roda é dominado na cama?",
+            "Quem na roda geme mais?",
+            "Quem na roda broxa mais?",
+            "Quem na roda é mais tarado?",
+            "Quem na roda é mais provável de roubar uma roupa íntima de alguém?",
+            "Quem na roda mexeria no celular durante o sexo?",
+            "Quem na roda é mais competitivo?",
+            "Quem na roda é pior em jogos?",
+            "Quem na roda não aceita perder?",
+            "Quem na roda precisa de menos tempo para escolher roupa?",
+            "Quem na roda não consegue ver um espelho sem se olhar?",
+            "Quem na roda passa mais tempo se olhando no espelho enquanto se veste?",
+            "Quem na roda dorme pelado?",
+            "Quem na roda se parece mais com você?",
+            "Quem na roda seria o pior colega de quarto?",
+            "Quem na roda finge ser mais santinho?",
+            "Quem na roda lava menos as roupas íntimas?",
+            "Quem na roda compraria pack?",
+            "Quem na roda venderia pack?",
+            "Quem na roda teria um sugardaddy/sugarmommy?",
+            "Quem na roda comprou mais camisinhas recentemente?",
+            "Quem na roda usa camisinha de posto?",
+            "Quem na roda trairia seus amigos por dinheiro?",
+            "Quem na roda é mais fácil de trair em um relacionamento?",
+            "Quem na roda roubaria uma velha?",
+            "Quem na roda mentiria para uma criança?",
+            "Quem na roda venderia curso (esquema de pirâmide etc)?",
+            "Quem na roda xingaria o telemarketing?",
+            "Quem na roda prefere receber o pedido errado do que reclamar?",
+            "Quem na roda tem mais chances de entrar numa seita?",
+            "Quem na roda não daria dinheiro a um morador de rua?",
+            "Quem na roda passa mais tempo no TikTok/Shorts/Reels...?",
+            "Quem na roda é mais pão duro?",
+            "Quem na roda xinga mais?",
+            "Quem na roda tem menos amor à vida?",
+            "Quem na roda tem mais chances de roubar?",
+            "Quem na roda sequestraria alguém?",
+            "Quem na roda é incapaz de criar um filho?",
+            "Quem na roda cometeria um crime de ódio?",
+            "Quem na roda é o mais impulsivo?",
+            "Quem na roda é mais barraqueiro?",
+            "Quem na roda é mais afeminado/masculinizada?",
+            "Quem na roda muda mais quando tá bêbado?",
+            "Quem na roda é mais ciumento?",
+            "Quem mentiria numa entrevista de emprego?",
+            "Quem na roda consideraria comer merda por dinheiro?",
+            "Quem na roda xereta o celular do parceiro?",
+            "Quem na roda atropelaria alguém?",
+            "Quem na roda acusaria alguém de um crime?",
+            "Quem na roda fugiria do local de um crime?",
+            "Quem na roda tem os conhecimentos mais aleatórios?",
+            "Quem na roda é o mais burro?",
+            "Quem na roda você contrataria se fosse dono de uma empresa?",
+            "Quem na roda escolheria o dinheiro ao invés do amor?",
+            "Quem na roda perdeu a virgindade mais jovem?",
+            "Quem na roda é o mais ingênuo?",
+            "Quem na roda provavelmente já fez websexo?",
+            "Quem na roda já fez sexting?",
+            "Quem na roda não conseguiria ficar 24 horas sem o celular?",
+            "Quem na roda faz mais coisas idiotas quando está bêbado?",
+            "Quem na roda é o mais barulhento?",
+            "Quem na roda daria risada num funeral?",
+            "Quem na roda colava mais no ensino médio?",
+            "Quem na roda não teria nenhum problema de trabalhar com tráfico?",
+            "Quem na roda seria mais provável de pular na fogueira de festa junina?",
+            "Quem na roda seria mais provável de casar numa festa junina?",
+            "Quem na roda venderia foto do pé?",
+            "Quem na roda ficaria rico com Instagram?",
+            "Quem na roda seria expulso de um reality show?",
+            "Quem na roda faria sexo apenas para pagar aposta?",
+            "Quem na roda flertaria durante a terapia?",
+            "Quem na roda venderia a alma?",
+            "Quem na roda seria banido do grupo?"
+        ];
+
+        function novaPergunta() {
+            const randomIndex = Math.floor(Math.random() * perguntas.length);
+            document.getElementById("pergunta").innerText = perguntas[randomIndex];
+        }
+    </script>
+</body>
+
+</html>
